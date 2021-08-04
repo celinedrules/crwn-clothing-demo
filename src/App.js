@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
- //import Header from './components/header/header.component';
+import Header from './components/header/header.component';
 // import HomePage from './pages/homepage/homepage.component';
 // import ShopPage from './pages/shop/shop.component';
 // import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
@@ -18,8 +18,8 @@ const App = ({ /*checkUserSession, currentUser*/ }) => {
     // }, [checkUserSession]);
 
     return (
-        <div>FUCK
-            {/*<Header />*/}
+        <div>
+            <Header />
             {/*<Switch>*/}
             {/*    <Route exact path={'/'} component={HomePage} />*/}
             {/*    <Route path={'/shop'} component={ShopPage} />*/}
