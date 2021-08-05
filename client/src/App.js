@@ -25,7 +25,7 @@ const App = ({ checkUserSession, currentUser }) =>
 			<Switch>
 				<Route exact path={'/'} component={HomePage} />
 				<Route path={'/shop'} component={ShopPage} />
-				<Route exact path={'/payment'} component={CheckoutPage} />
+				<Route exact path={'/checkout'} component={CheckoutPage} />
 				<Route
 					exact
 					path={'/signin'}
