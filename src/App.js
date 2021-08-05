@@ -12,40 +12,42 @@ import { checkUserSession } from './redux/user/user.actions';
 
 import './App.css';
 
-const App = ({ checkUserSession, currentUser }) => {
-    useEffect(() => {
-        checkUserSession();
-    }, [checkUserSession]);
+const App = ({ checkUserSession, currentUser }) =>
+{
+	useEffect(() =>
+	{
+		checkUserSession();
+	}, [checkUserSession]);
 
-    return (
-        <div>
-            <Header />
-            <Switch>
-                <Route exact path={'/'} component={HomePage} />
-                <Route path={'/shop'} component={ShopPage} />
-                <Route exact path={'/checkout'} component={CheckoutPage} />
-                {/*<Route*/}
-                {/*    exact*/}
-                {/*    path={'/signin'}*/}
-                {/*    render={() =>*/}
-                {/*        currentUser ? (*/}
-                {/*            <Redirect to={'/'} />*/}
-                {/*        ) : (*/}
-                {/*            <SignInAndSignUpPage />*/}
-                {/*        )*/}
-                {/*    }*/}
-                {/*/>*/}
-            </Switch>
-        </div>
-    );
+	return (
+		<div>
+			<Header />
+			<Switch>
+				<Route exact path={'/'} component={HomePage} />
+				<Route path={'/shop'} component={ShopPage} />
+				<Route exact path={'/checkout'} component={CheckoutPage} />
+				<Route
+					exact
+					path={'/signin'}
+					render={() =>
+						currentUser ? (
+							<Redirect to={'/'} />
+						) : (
+							<SignInAndSignUpPage />
+						)
+					}
+				/>
+			</Switch>
+		</div>
+	);
 };
 
 const mapStateToProps = createStructuredSelector({
-    currentUser: selectCurrentUser,
+	currentUser: selectCurrentUser,
 });
 
 const mapDispatchToProps = dispatch => ({
-    checkUserSession: () => dispatch(checkUserSession()),
+	checkUserSession: () => dispatch(checkUserSession()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
