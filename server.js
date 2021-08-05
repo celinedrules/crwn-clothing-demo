@@ -24,7 +24,7 @@ app.listen(port, error => {
 	console.log('Server running on port ' + port);
 });
 
-app.post('/checkout', (req, res) => {
+app.post('/payment', (req, res) => {
 	const body = {
 		source: req.body.token.id,
 		amount: req.body.amount,
