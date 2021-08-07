@@ -2,32 +2,29 @@
 
 # dependencies
 /node_modules
-/client/node_modules
-/client/.pnp
-/client/.pnp.js
+/.pnp
+/.pnp.js
 
 # testing
-/client/coverage
+/coverage
 
 # production
 /build
 /built-lambda
-/client/build
 
 /.netlify
-/client/.netlify
 
 # misc
-/client/.DS_Store
-/client/.env.local
-/client/.env.development.local
-/client/.env.test.local
-/client/.env.production.local
+/.DS_Store
+/.env.local
+/.env.development.local
+/.env.test.local
+/.env.production.local
 .env
 
-/client/npm-debug.log*
-/client/yarn-debug.log*
-/client/yarn-error.log*
+/npm-debug.log*
+/yarn-debug.log*
+/yarn-error.log*
 
 npm-debug.log*
 yarn-debug.log*
