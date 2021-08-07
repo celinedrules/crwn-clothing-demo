@@ -1,4 +1,5 @@
-﻿const FireStoreParser = require('firestore-parser');
+﻿require('encoding')
+const FireStoreParser = require('firestore-parser');
 const fetch = require('node-fetch');
 require('dotenv').config();
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
