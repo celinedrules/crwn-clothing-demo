@@ -1,4 +1,4 @@
-﻿import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import UserActionTypes from './user.types';
 import Swal from 'sweetalert2';
 import {

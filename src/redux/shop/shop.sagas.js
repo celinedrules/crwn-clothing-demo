@@ -1,4 +1,4 @@
-﻿import { all, call, put, takeLatest } from 'redux-saga/effects';
+import { all, call, put, takeLatest } from 'redux-saga/effects';
 import ShopActionTypes from './shop.types';
 import {
 	convertCollectionsSnapshotToMap,

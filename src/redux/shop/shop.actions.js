@@ -1,4 +1,4 @@
-﻿import ShopActionTypes from './shop.types';
+import ShopActionTypes from './shop.types';
 
 // Don't know that I need this as it's in shop.sagas.js
 export const fetchCollectionsStart = collectionsMap => ({

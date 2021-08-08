@@ -1,4 +1,4 @@
-﻿import { connect } from 'react-redux';
+import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 //import { withRouter } from 'react-router-dom';
 import { compose } from 'redux';
