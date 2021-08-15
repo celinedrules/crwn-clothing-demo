@@ -38,7 +38,7 @@ export const Input = styled.input`
   outline: none;
   border: 1px solid rgba(200, 200, 200, 0.3);
   padding: 0 10px;
-  border-bottom: 1.4px solid transparent;
+  border-bottom: 2px solid rgba(200, 200, 200, 0.3);
   transition: all 200ms ease-in-out;
   font-size: 12px;
 
@@ -57,7 +57,7 @@ export const Input = styled.input`
 `;
 
 export const Submit = styled.button`
-  width: 100%;
+  width: 80%;
   padding: 11px 40px;
   color: white;
   font-size: 16px;

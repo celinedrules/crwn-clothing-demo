@@ -14,13 +14,13 @@ export function SignupForm(props) {
 			<Input type={'email'} placeholder={'Email'} />
 			<Input type={'password'} placeholder={'Password'} />
 			<Input type={'password'} placeholder={'Confirm Password'} />
-		</FormContainer>
-		<Marginer direction={'vertical'} margin={10} />
+		<Marginer direction={'vertical'} margin={'2em'} />
 		<Submit type={'submit'}>Sign Up</Submit>
-		<Marginer direction={'vertical'} margin={'1em'} />
+		<Marginer direction={'vertical'} margin={10} />
 		<MutedLink href={'#'}>
 			Already have an account?
 			<BoldLink href={'#'} onClick={switchToSignin}>Sign In</BoldLink>
 		</MutedLink>
+		</FormContainer>
 	</BoxContainer>;
 }

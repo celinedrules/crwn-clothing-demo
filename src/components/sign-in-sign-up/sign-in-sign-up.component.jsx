@@ -5,7 +5,7 @@ import { SignupForm } from '../sign-up/signup-form.component';
 import { motion } from 'framer-motion';
 import { AccountContext } from './sign-in-sign-up.context';
 //import CloseIcon  from '@material-ui/icons/Close'
-import CloseIcon from '../../assets/close-icon.png'
+import CloseIcon from '../../assets/close-icon.png';
 
 const BoxContainer = styled.div`
   width: 520px;
@@ -88,12 +88,24 @@ const backdropVariants = {
 		height: '1350px',
 		borderRadius: '20%',
 		transform: 'rotate(60deg)',
+		zIndex: '30',
+		transition: {
+			zIndex: {
+				delay: .01,
+			},
+		},
 	},
 	collapsed: {
 		width: '210%',
 		height: '550px',
 		borderRadius: '50%',
 		transform: 'rotate(160deg)',
+		zIndex: 'auto',
+		transition: {
+			zIndex: {
+				delay: .3,
+			},
+		},
 	},
 };
 
@@ -103,31 +115,38 @@ const expandedTransition = {
 	stiffness: 30,
 };
 
-export function AccountBox(props) {
+export function AccountBox(props)
+{
 
 	const { handleClose } = props;
 
 	const [isExpanded, setExpanded] = useState(false);
 	const [active, setActive] = useState('signin');
 
-	const playExpandingAnimation = () => {
+	const playExpandingAnimation = () =>
+	{
 		setExpanded(true);
-		setTimeout(() => {
+		setTimeout(() =>
+			{
 				setExpanded(false);
 			},
 			expandedTransition.duration * 1000 - 1500);
 	};
 
-	const switchToSignup = () => {
+	const switchToSignup = () =>
+	{
 		playExpandingAnimation();
-		setTimeout(() => {
+		setTimeout(() =>
+		{
 			setActive('signup');
 		}, 400);
 	};
 
-	const switchToSignin = () => {
+	const switchToSignin = () =>
+	{
 		playExpandingAnimation();
-		setTimeout(() => {
+		setTimeout(() =>
+		{
 			setActive('signin');
 		}, 400);
 	};
@@ -138,7 +157,7 @@ export function AccountBox(props) {
 		<AccountContext.Provider value={contextValue}>
 			<BoxContainer>
 				<CloseButton>
-					<img src={CloseIcon} onClick={handleClose} style={{width: '32px'}}/>
+					<img src={CloseIcon} onClick={handleClose} style={{ width: '32px' }} />
 				</CloseButton>
 				<TopContainer>
 					<BackDrop initial={false}

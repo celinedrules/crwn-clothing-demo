@@ -5,7 +5,6 @@ import { AccountContext } from '../sign-in-sign-up/sign-in-sign-up.context';
 import { emailSignInStart, googleSignInStart } from '../../redux/user/user.actions';
 import { connect } from 'react-redux';
 import DividerWithText from '../divider/divider-with-text';
-import styled from 'styled-components';
 
 const SigninForm = ({ emailSignInStart, googleSignInStart, handleClose }) => {
 	const { switchToSignup } = useContext(AccountContext);
@@ -37,7 +36,7 @@ const SigninForm = ({ emailSignInStart, googleSignInStart, handleClose }) => {
 			<Input name={'password'} type={'password'} onChange={handleChange} placeholder={'Password'} />
 			<Marginer direction={'vertical'} margin={10} />
 			<MutedLink href={'#'}>Forgot Password?</MutedLink>
-			<Marginer direction={'vertical'} margin={'1.6em'} />
+			<Marginer direction={'vertical'} margin={10} />
 			<Submit type={'submit'} onClick={signIn}>Sign In</Submit>
 			<Marginer direction={'vertical'} margin={'1em'} />
 			<DividerWithText style={{fontSize: '18px'}}>or</DividerWithText>
