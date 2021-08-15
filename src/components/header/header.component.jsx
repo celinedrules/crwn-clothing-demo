@@ -26,13 +26,11 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
 			<sc.LogoContainer to={'/'}>
 				<Logo className={'logo'} />
 			</sc.LogoContainer>
-			<sc.OptionsContainer>
+			<sc.OptionsContainer style={{paddingRight: '80px'}}>
 				<sc.OptionLink to={'/shop'}>SHOP</sc.OptionLink>
 				<sc.OptionLink to={'/contact'}>CONTACT</sc.OptionLink>
 				{currentUser ? (
-					<sc.OptionLink as={'div'} to={'/#'} onClick={signOutStart}>
-						SIGN OUT
-					</sc.OptionLink>
+					<sc.OptionLink as={'div'} to={'/#'} onClick={signOutStart}>SIGN OUT</sc.OptionLink>
 				) : (
 					<sc.OptionsContainer>
 						<sc.OptionLink onClick={handleClickOpen} to={'/#'}>SIGN IN</sc.OptionLink>
