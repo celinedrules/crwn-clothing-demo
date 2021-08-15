@@ -3,7 +3,7 @@ import { BoldLink, BoxContainer, FormContainer, Input, MutedLink, Submit } from 
 import { Marginer } from '../marginer/marginer.component';
 import { AccountContext } from '../sign-in-sign-up/sign-in-sign-up.context';
 import { emailSignInStart, googleSignInStart } from '../../redux/user/user.actions';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import DividerWithText from '../divider/divider-with-text';
 
 const SigninForm = ({ emailSignInStart, googleSignInStart, handleClose }) => {
@@ -13,15 +13,11 @@ const SigninForm = ({ emailSignInStart, googleSignInStart, handleClose }) => {
 		password: '',
 	});
 	const { email, password } = userCredentials;
+	const dispatch = useDispatch();
 
 	const signIn = async event => {
 		event.preventDefault();
-		try {
-			emailSignInStart(email, password);
-			//handleClose();
-		} catch (error) {
-
-		}
+		emailSignInStart(email, password, dispatch);
 	};
 
 	const handleChange = event => {
@@ -39,7 +35,7 @@ const SigninForm = ({ emailSignInStart, googleSignInStart, handleClose }) => {
 			<Marginer direction={'vertical'} margin={10} />
 			<Submit type={'submit'} onClick={signIn}>Sign In</Submit>
 			<Marginer direction={'vertical'} margin={'1em'} />
-			<DividerWithText style={{fontSize: '18px'}}>or</DividerWithText>
+			<DividerWithText style={{ fontSize: '18px' }}>or</DividerWithText>
 			<Marginer direction={'vertical'} margin={'1em'} />
 			<Submit type={'button'} onClick={googleSignInStart} isGoogleSignIn> Sign in with Google </Submit>
 			<Marginer direction={'vertical'} margin={'1em'} />
@@ -53,8 +49,8 @@ const SigninForm = ({ emailSignInStart, googleSignInStart, handleClose }) => {
 
 const mapDispatchToProps = dispatch => ({
 	googleSignInStart: () => dispatch(googleSignInStart()),
-	emailSignInStart: (email, password) =>
-		dispatch(emailSignInStart({ email, password })),
+	emailSignInStart: (email, password, dispatch) =>
+		dispatch(emailSignInStart({ email, password, dispatch })),
 });
 
 export default connect(null, mapDispatchToProps)(SigninForm);

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import Header from './components/header/header.component';
@@ -12,13 +12,11 @@ import { checkUserSession } from './redux/user/user.actions';
 
 import './App.css';
 
-const App = ({ checkUserSession, currentUser }) =>
-{
-	useEffect(() =>
-	{
+const App = ({ checkUserSession, currentUser }) => {
+	useEffect(() => {
 		checkUserSession();
 	}, [checkUserSession]);
-
+	
 	return (
 		<div>
 			<Header />

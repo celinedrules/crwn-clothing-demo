@@ -1,3 +1,4 @@
+import React from 'react';
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import UserActionTypes from './user.types';
 import Swal from 'sweetalert2';
@@ -9,25 +10,21 @@ import {
 	signUpFailure,
 	signUpSuccess,
 } from './user.actions';
-import {
-	auth,
-	createUserProfileDocument,
-	getCurrentUser,
-	googleProvider,
-} from '../../firebase/firebase.utils';
+import { auth, createUserProfileDocument, getCurrentUser, googleProvider } from '../../firebase/firebase.utils';
 
-import 'animate.css'
+import 'animate.css';
+import { setSnackbar } from '../snackbar/snackbar.reducer';
 
 export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 	try {
 		const userRef = yield call(
 			createUserProfileDocument,
 			userAuth,
-			additionalData
+			additionalData,
 		);
 		const userSnapshot = yield userRef.get();
 		yield put(
-			signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() })
+			signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }),
 		);
 	} catch (error) {
 		yield put(signInFailure(error.message));
@@ -43,12 +40,23 @@ export function* signInWithGoogle() {
 	}
 }
 
-export function* signInWithEmail({ payload: { email, password } }) {
+export function* signInWithEmail({ payload: { email, password, dispatch } }) {
 	try {
 		const { user } = yield auth.signInWithEmailAndPassword(email, password);
 		yield getSnapshotFromUserAuth(user);
+		dispatch(setSnackbar(true, 'success', 'Welcome'));
 		return user;
 	} catch (error) {
+		if (error.code === 'auth/wrong-password') {
+			dispatch(setSnackbar(true, 'error', 'Wrong Password'));
+		} else if (error.code === 'auth/user-not-found') {
+			dispatch(setSnackbar(true, 'error', 'User Not Found'));
+		} else if (error.code === 'auth/invalid-email') {
+			dispatch(setSnackbar(true, 'error', 'Incorrect Email Format'));
+		} else {
+			dispatch(setSnackbar(true, 'error', `Unknown Error: ${error.message}`));
+		}
+
 		yield put(signInFailure(error.message));
 	}
 }
@@ -66,7 +74,7 @@ export function* signUp({ payload: { email, password, displayName } }) {
 	try {
 		const { user } = yield auth.createUserWithEmailAndPassword(
 			email,
-			password
+			password,
 		);
 		yield put(signUpSuccess({ user, additionalData: { displayName } }));
 	} catch (error) {
@@ -93,6 +101,7 @@ export function* isUserAuthenticated() {
 		if (!userAuth) return;
 
 		yield getSnapshotFromUserAuth(userAuth);
+		return userAuth;
 	} catch (error) {
 		yield put(signInFailure(error.message));
 	}

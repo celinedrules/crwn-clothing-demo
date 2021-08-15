@@ -4,13 +4,12 @@ import SigninForm from '../sign-in/signin-form.component';
 import { SignupForm } from '../sign-up/signup-form.component';
 import { motion } from 'framer-motion';
 import { AccountContext } from './sign-in-sign-up.context';
-//import CloseIcon  from '@material-ui/icons/Close'
 import CloseIcon from '../../assets/close-icon.png';
 
 const BoxContainer = styled.div`
   width: 520px;
   min-height: 580px;
-  max-height: 580px	;
+  max-height: 580px;
   display: flex;
   flex-direction: column;
   //border-radius: 19px;
@@ -115,38 +114,30 @@ const expandedTransition = {
 	stiffness: 30,
 };
 
-export function AccountBox(props)
-{
-
+export function SignInSignUp(props) {
 	const { handleClose } = props;
 
 	const [isExpanded, setExpanded] = useState(false);
 	const [active, setActive] = useState('signin');
 
-	const playExpandingAnimation = () =>
-	{
+	const playExpandingAnimation = () => {
 		setExpanded(true);
-		setTimeout(() =>
-			{
+		setTimeout(() => {
 				setExpanded(false);
 			},
 			expandedTransition.duration * 1000 - 1500);
 	};
 
-	const switchToSignup = () =>
-	{
+	const switchToSignup = () => {
 		playExpandingAnimation();
-		setTimeout(() =>
-		{
+		setTimeout(() => {
 			setActive('signup');
 		}, 400);
 	};
 
-	const switchToSignin = () =>
-	{
+	const switchToSignin = () => {
 		playExpandingAnimation();
-		setTimeout(() =>
-		{
+		setTimeout(() => {
 			setActive('signin');
 		}, 400);
 	};

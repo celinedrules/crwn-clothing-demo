@@ -10,8 +10,7 @@ import * as sc from './header.styles';
 import CartDropdownContainer from '../cart-dropdown/cart-dropdown.container';
 import SignInSignUpDialogue from '../sign-in-sign-up/sign-in-sign-up.dialog';
 
-const Header = ({ currentUser, hidden, signOutStart }) =>
-{
+const Header = ({ currentUser, hidden, signOutStart }) => {
 	const [open, setOpen] = useState(false);
 
 	const signOut = () => {
@@ -19,13 +18,11 @@ const Header = ({ currentUser, hidden, signOutStart }) =>
 		setOpen(false);
 	};
 
-	const handleClickOpen = () =>
-	{
+	const handleClickOpen = () => {
 		setOpen(true);
 	};
 
-	const handleClose = () =>
-	{
+	const handleClose = () => {
 		setOpen(false);
 	};
 
