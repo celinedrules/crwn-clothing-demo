@@ -1,11 +1,16 @@
 import { Dialog } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { AccountBox } from './sign-in-sign-up.component';
-
+import { getCurrentUser } from '../../firebase/firebase.utils';
 
 export default function SignInSignUpDialogue(props) {
 	const { onClose, open } = props;
-
+	
+	// const handleOpen = event =>{
+	// 	event.preventDefault()
+	// 	open();
+	// }
+	
 	const handleClose = (event, reason) => {
 		if (reason === 'backdropClick') {
 			return false;
@@ -25,5 +30,5 @@ export default function SignInSignUpDialogue(props) {
 
 SignInSignUpDialogue.propTypes = {
 	onClose: PropTypes.func.isRequired,
-	open: PropTypes.bool.isRequired,
+	//open: PropTypes.bool.isRequired,
 };

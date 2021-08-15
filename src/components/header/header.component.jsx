@@ -10,14 +10,22 @@ import * as sc from './header.styles';
 import CartDropdownContainer from '../cart-dropdown/cart-dropdown.container';
 import SignInSignUpDialogue from '../sign-in-sign-up/sign-in-sign-up.dialog';
 
-const Header = ({ currentUser, hidden, signOutStart }) => {
+const Header = ({ currentUser, hidden, signOutStart }) =>
+{
 	const [open, setOpen] = useState(false);
 
-	const handleClickOpen = () => {
+	const signOut = () => {
+		signOutStart();
+		setOpen(false);
+	};
+
+	const handleClickOpen = () =>
+	{
 		setOpen(true);
 	};
 
-	const handleClose = () => {
+	const handleClose = () =>
+	{
 		setOpen(false);
 	};
 
@@ -26,11 +34,11 @@ const Header = ({ currentUser, hidden, signOutStart }) => {
 			<sc.LogoContainer to={'/'}>
 				<Logo className={'logo'} />
 			</sc.LogoContainer>
-			<sc.OptionsContainer style={{paddingRight: '80px'}}>
+			<sc.OptionsContainer style={{ paddingRight: '80px' }}>
 				<sc.OptionLink to={'/shop'}>SHOP</sc.OptionLink>
 				<sc.OptionLink to={'/contact'}>CONTACT</sc.OptionLink>
 				{currentUser ? (
-					<sc.OptionLink as={'div'} to={'/#'} onClick={signOutStart}>SIGN OUT</sc.OptionLink>
+					<sc.OptionLink to={'/#'} onClick={signOut}>SIGN OUT</sc.OptionLink>
 				) : (
 					<sc.OptionsContainer>
 						<sc.OptionLink onClick={handleClickOpen} to={'/#'}>SIGN IN</sc.OptionLink>
