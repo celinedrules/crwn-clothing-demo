@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
@@ -13,8 +13,10 @@ import SignInSignUpDialogue from '../sign-in-sign-up/sign-in-sign-up.dialog';
 const Header = ({ currentUser, hidden, signOutStart }) => {
 	const [open, setOpen] = useState(false);
 
+	const dispatch = useDispatch();
+	
 	const signOut = () => {
-		signOutStart();
+		signOutStart(dispatch);
 		setOpen(false);
 	};
 
@@ -54,7 +56,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-	signOutStart: () => dispatch(signOutStart()),
+	signOutStart: () => dispatch(signOutStart({ dispatch })),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -14,14 +14,17 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const CustomizedSnackbars = () => {
+const CustomizedSnackbars = () =>
+{
 	const classes = useStyles();
 	const dispatch = useDispatch();
 	const snackbarOpen = useSelector(state => state.snackbar.snackbarOpen);
 	const snackbarType = useSelector(state => state.snackbar.snackbarType);
 	const snackbarMessage = useSelector(state => state.snackbar.snackbarMessage);
-	const handleClose = (event, reason) => {
-		if (reason === 'clickaway') {
+	const handleClose = (event, reason) =>
+	{
+		if (reason === 'clickaway')
+		{
 			return;
 		}
 		dispatch(setSnackbar(false, snackbarType, snackbarMessage));
@@ -31,7 +34,7 @@ const CustomizedSnackbars = () => {
 		<div className={classes.root}>
 			<Snackbar
 				open={snackbarOpen}
-				autoHideDuration={3000}
+				autoHideDuration={4000}
 				onClose={handleClose}
 			>
 				<Alert

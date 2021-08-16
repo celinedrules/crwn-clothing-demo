@@ -6,7 +6,7 @@ import { emailSignInStart, googleSignInStart } from '../../redux/user/user.actio
 import { connect, useDispatch } from 'react-redux';
 import DividerWithText from '../divider/divider-with-text';
 
-const SigninForm = ({ emailSignInStart, googleSignInStart, handleClose }) => {
+const SigninForm = ({ emailSignInStart, googleSignInStart }) => {
 	const { switchToSignup } = useContext(AccountContext);
 	const [userCredentials, setCredentials] = useState({
 		email: '',
@@ -49,7 +49,7 @@ const SigninForm = ({ emailSignInStart, googleSignInStart, handleClose }) => {
 
 const mapDispatchToProps = dispatch => ({
 	googleSignInStart: () => dispatch(googleSignInStart()),
-	emailSignInStart: (email, password, dispatch) =>
+	emailSignInStart: (email, password) =>
 		dispatch(emailSignInStart({ email, password, dispatch })),
 });
 

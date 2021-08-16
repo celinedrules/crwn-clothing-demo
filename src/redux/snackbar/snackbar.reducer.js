@@ -1,4 +1,4 @@
-export const SET_SNACKBAR = "teamly/settings/SET_SNACKBAR";
+import { SET_SNACKBAR } from './snackbar.types';
 
 const initialState = {
 	snackbarOpen: false,
