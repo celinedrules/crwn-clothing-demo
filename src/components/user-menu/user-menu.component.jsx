@@ -1,5 +1,4 @@
-import { makeStyles } from '@material-ui/core/styles';
-import React, { useState } from 'react';
+import React from 'react';
 import { connect, useDispatch } from 'react-redux';
 import Avatar from '@material-ui/core/Avatar';
 import defaultAvatar from '../../assets/default-avatar.png';
@@ -10,39 +9,20 @@ import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { signOutStart } from '../../redux/user/user.actions';
 import { showModal } from '../../redux/modal/modal.actions';
 
-const useStyles = makeStyles((theme) => ({
-	root: {
-		display: 'flex',
-	},
-	paper: {
-		marginRight: theme.spacing(2),
-	},
-}));
-
-const UserMenu = ({ currentUser, hidden, signOutStart, dispatchShowModal }) => {
-	const classes = useStyles();
-	const [dialogOpen, setDialogOpen] = useState(false);
+const UserMenu = ({ currentUser, signOutStart, dispatchShowModal }) => {
 	const [menuOpen, setMenuOpen] = React.useState(false);
 	const dispatch = useDispatch();
 	const anchorRef = React.useRef(null);
-	const  showModal  = dispatchShowModal;
-	
+	const showModal = dispatchShowModal;
+
 	const signOut = event => {
 		signOutStart(dispatch);
 		handleMenuClose(event);
-		setDialogOpen(false);
 	};
 
 	const handleDialogClickOpen = event => {
-		showModal()
-		// handleMenuClose(event);
-		// setDialogOpen(true);
+		showModal();
 	};
-
-	// const handleDialogClose = () => {
-	// 	alert('FUCK');
-	// 	setDialogOpen(false);
-	// };
 
 	const handleToggle = () => {
 		setMenuOpen((prevOpen) => !prevOpen);
@@ -74,12 +54,14 @@ const UserMenu = ({ currentUser, hidden, signOutStart, dispatchShowModal }) => {
 
 	return (
 		<>
-			<Avatar alt={'Chris'} src={defaultAvatar}
+			<Avatar alt={'Chris'}
+					src={!currentUser ? defaultAvatar : ''}
 					ref={anchorRef}
 					aria-controls={menuOpen ? 'menu-list-grow' : undefined}
 					aria-haspopup='true'
-					onClick={handleToggle}
-			/>
+					onClick={handleToggle}>
+				{currentUser ? currentUser.firstName.charAt(0) + currentUser.lastName.charAt(0) : ''}
+			</Avatar>
 			<Popper open={menuOpen} anchorEl={anchorRef.current} role={undefined} transition disablePortal>
 				{({ TransitionProps, placement }) => (
 					<Grow
@@ -109,7 +91,6 @@ const UserMenu = ({ currentUser, hidden, signOutStart, dispatchShowModal }) => {
 					</Grow>
 				)}
 			</Popper>
-			{/*<SignInSignUpDialogue onClose={handleDialogClose} open={dialogOpen} />*/}
 		</>
 	);
 };
@@ -121,8 +102,7 @@ const mapStateToProps = createStructuredSelector({
 
 const mapDispatchToProps = dispatch => ({
 	signOutStart: () => dispatch(signOutStart({ dispatch })),
-	dispatchShowModal: () =>dispatch(showModal())
+	dispatchShowModal: () => dispatch(showModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserMenu);
-//export default UserMenu;

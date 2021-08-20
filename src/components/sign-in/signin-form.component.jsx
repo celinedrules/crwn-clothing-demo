@@ -15,10 +15,15 @@ const SigninForm = ({ emailSignInStart, googleSignInStart, hide }) => {
 	const { email, password } = userCredentials;
 	const dispatch = useDispatch();
 	const hideSignInForm = hide;
-	
+
 	const signIn = async event => {
 		event.preventDefault();
 		emailSignInStart(email, password, dispatch, hideSignInForm);
+	};
+
+	const signInWithGoogle = async event => {
+		event.preventDefault();
+		googleSignInStart(dispatch, hideSignInForm);
 	};
 
 	const handleChange = event => {
@@ -38,7 +43,7 @@ const SigninForm = ({ emailSignInStart, googleSignInStart, hide }) => {
 			<Marginer direction={'vertical'} margin={'1em'} />
 			<DividerWithText style={{ fontSize: '18px' }}>or</DividerWithText>
 			<Marginer direction={'vertical'} margin={'1em'} />
-			<Submit type={'button'} onClick={googleSignInStart} isGoogleSignIn> Sign in with Google </Submit>
+			<Submit type={'button'} onClick={signInWithGoogle} isGoogleSignIn> Sign in with Google </Submit>
 			<Marginer direction={'vertical'} margin={'1em'} />
 			<MutedLink href={'#'}>
 				Don't have an account?
@@ -50,7 +55,7 @@ const SigninForm = ({ emailSignInStart, googleSignInStart, hide }) => {
 
 
 const mapDispatchToProps = dispatch => ({
-	googleSignInStart: () => dispatch(googleSignInStart()),
+	googleSignInStart: (dispatch, hideSignInForm) => dispatch(googleSignInStart({ dispatch, hideSignInForm })),
 	emailSignInStart: (email, password, dispatch, hideSignInForm) =>
 		dispatch(emailSignInStart({ email, password, dispatch, hideSignInForm })),
 });

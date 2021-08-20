@@ -26,16 +26,21 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 		yield put(
 			signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }),
 		);
+		return userSnapshot.data().displayName;
 	} catch (error) {
 		yield put(signInFailure(error.message));
 	}
 }
 
-export function* signInWithGoogle() {
+export function* signInWithGoogle({payload: {dispatch, hideSignInForm}}) {
 	try {
 		const { user } = yield auth.signInWithPopup(googleProvider);
 		yield getSnapshotFromUserAuth(user);
+		dispatch(setSnackbar(true, 'info', 'Welcome'));
+		hideSignInForm();
+		return user;
 	} catch (error) {
+		dispatch(setSnackbar(true, 'error', `Unknown Error: ${error.message}`));
 		yield put(signInFailure(error.message));
 	}
 }
