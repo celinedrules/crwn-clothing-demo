@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
 import Header from './components/header/header.component';
@@ -9,6 +9,7 @@ import SignInAndSignUpPage from './pages/sign-in-and-sign-up/sign-in-and-sign-up
 import CheckoutPage from './pages/checkout/checkout.component';
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
+import Modal from './components/modal/modal.component';
 
 import './App.css';
 
@@ -36,6 +37,7 @@ const App = ({ checkUserSession, currentUser }) => {
 					}
 				/>
 			</Switch>
+			<Modal modalType={'SignInSignUp'} />
 		</div>
 	);
 };

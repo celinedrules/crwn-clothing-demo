@@ -6,6 +6,7 @@ import userReducer from './user/user.reducer';
 import directoryReducer from './directory/directory.reducer';
 import shopReducer from './shop/shop.reducer';
 import snackbarReducer from './snackbar/snackbar.reducer';
+import modalReducer from './modal/modal.reducer';
 
 
 const persistConfig = {
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
 	directory: directoryReducer,
 	shop: shopReducer,
 	snackbar: snackbarReducer,
+	modal: modalReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);
