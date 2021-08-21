@@ -12,15 +12,20 @@ import {
 	CartItemsContainer,
 	EmptyMessageContainer,
 } from './cart-dropdown.styles';
+import { ClickAwayListener } from '@material-ui/core';
 
 // --------- THIS DOES WORK ----------
 
 const CartDropdown = ({ cartItems, history, dispatch }) => {
-	const { wrapperRef, isVisible } = ClickedOutside();
+	//const { wrapperRef, isVisible } = ClickedOutside();
 
+	const clickAway = () =>{
+		dispatch(toggleCartHidden())
+	}
+	
 	return (
-		isVisible && (
-			<CartDropdownContainer ref={wrapperRef}>
+		<ClickAwayListener onClickAway={clickAway}>
+			<CartDropdownContainer>
 				<CartItemsContainer>
 					{cartItems.length ? (
 						cartItems.map(cartItem => (
@@ -40,7 +45,7 @@ const CartDropdown = ({ cartItems, history, dispatch }) => {
 					GO TO CHECKOUT
 				</CustomButton>
 			</CartDropdownContainer>
-		)
+		</ClickAwayListener>
 	);
 };
 

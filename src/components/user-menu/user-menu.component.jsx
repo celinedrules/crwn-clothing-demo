@@ -8,6 +8,7 @@ import { selectCurrentUser } from '../../redux/user/user.selectors';
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { signOutStart } from '../../redux/user/user.actions';
 import { showModal } from '../../redux/modal/modal.actions';
+import { UserMenuContainer } from './user-menu.styles';
 
 const UserMenu = ({ currentUser, signOutStart, dispatchShowModal }) => {
 	const [menuOpen, setMenuOpen] = React.useState(false);
@@ -53,8 +54,8 @@ const UserMenu = ({ currentUser, signOutStart, dispatchShowModal }) => {
 	}, [menuOpen]);
 
 	return (
-		<>
-			<Avatar alt={'Chris'}
+		<UserMenuContainer>
+			<Avatar alt={'Chris'} style={{cursor: 'pointer'}}
 					src={!currentUser ? defaultAvatar : ''}
 					ref={anchorRef}
 					aria-controls={menuOpen ? 'menu-list-grow' : undefined}
@@ -91,7 +92,7 @@ const UserMenu = ({ currentUser, signOutStart, dispatchShowModal }) => {
 					</Grow>
 				)}
 			</Popper>
-		</>
+		</UserMenuContainer>
 	);
 };
 

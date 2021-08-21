@@ -37,28 +37,28 @@ export const removeItemFromCart = (cartItems, cartItemToRemove) =>
 	return cartItems;
 };
 
-export const ClickedOutside = () =>
-{
-	const wrapperRef = useRef(null);
-	const [isVisible, setIsVisible] = useState(true);
-
-	// below is the same as componentDidMount and componentDidUnmount
-	useEffect(() =>
-	{
-		document.addEventListener('click', handleClickOutside, false);
-		return () =>
-		{
-			document.removeEventListener('click', handleClickOutside, false);
-		};
-	}, []);
-
-	const handleClickOutside = event =>
-	{
-		if (wrapperRef.current && !wrapperRef.current.contains(event.target))
-		{
-			setIsVisible(false);
-			toggleCartHidden();
-		}
-	};
-	return { wrapperRef, isVisible };
-};
+// export const ClickedOutside = () =>
+// {
+// 	const wrapperRef = useRef(null);
+// 	const [isVisible, setIsVisible] = useState(true);
+//
+// 	// below is the same as componentDidMount and componentDidUnmount
+// 	useEffect(() =>
+// 	{
+// 		document.addEventListener('click', handleClickOutside, false);
+// 		return () =>
+// 		{
+// 			document.removeEventListener('click', handleClickOutside, false);
+// 		};
+// 	}, []);
+//
+// 	const handleClickOutside = event =>
+// 	{
+// 		if (wrapperRef.current && !wrapperRef.current.contains(event.target))
+// 		{
+// 			setIsVisible(false);
+// 			toggleCartHidden();
+// 		}
+// 	};
+// 	return { wrapperRef, isVisible };
+// };
