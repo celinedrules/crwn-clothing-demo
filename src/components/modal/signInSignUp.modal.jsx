@@ -3,8 +3,8 @@ import React, { useState } from 'react';
 import {connect} from 'react-redux';
 import {AccountContext} from '../sign-in-sign-up/sign-in-sign-up.context';
 import CloseIcon from '../../assets/close-icon.png';
-import SigninForm from '../../components/sign-in/signin-form.component';
-import { SignupForm } from '../sign-up/signup-form.component';
+import SigninForm from '../sign-in/signin-form.component';
+import SignupForm  from '../sign-up/signup-form.component';
 import { hideModal } from '../../redux/modal/modal.actions';
 
 function SignInSignUpModal(props){
@@ -70,7 +70,7 @@ function SignInSignUpModal(props){
 					<ms.InnerContainer>
 						{active === 'signin' &&
 						<SigninForm handleDialogClose={onCloseButtonClick} hide={dispatchHideModal} />}
-						{active === 'signup' && <SignupForm />}
+						{active === 'signup' && <SignupForm handleDialogClose={onCloseButtonClick} hide={dispatchHideModal} />}
 					</ms.InnerContainer>
 				</ms.BoxContainer>
 			</ms.ModalContainer>

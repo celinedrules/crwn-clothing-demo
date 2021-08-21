@@ -26,7 +26,6 @@ export function* getSnapshotFromUserAuth(userAuth, additionalData) {
 		yield put(
 			signInSuccess({ id: userSnapshot.id, ...userSnapshot.data() }),
 		);
-		return userSnapshot.data().displayName;
 	} catch (error) {
 		yield put(signInFailure(error.message));
 	}
@@ -78,23 +77,18 @@ export function* signOut({ payload: { dispatch } }) {
 	}
 }
 
-export function* signUp({ payload: { email, password, displayName } }) {
+export function* signUp({ payload: { email, password, displayName, firstName, lastName,  dispatch, hideSignUpForm } }) {
 	try {
 		const { user } = yield auth.createUserWithEmailAndPassword(
 			email,
 			password,
 		);
-		yield put(signUpSuccess({ user, additionalData: { displayName } }));
+		yield put(signUpSuccess({ user, additionalData: { displayName, firstName, lastName } }));
+		dispatch(setSnackbar(true, 'info', 'Welcome'));
+		hideSignUpForm();
 	} catch (error) {
-		yield Swal.fire({
-			title: 'Uh-Oh',
-			text: error.message,
-			imageUrl:
-				'https://icons.iconarchive.com/icons/oxygen-icons.org/oxygen/256/Actions-window-close-icon.png',
-			showClass: { popup: 'animate__animated animate__zoomInDown' },
-			hideClass: { popup: 'animate__animated animate__zoomOutUp' },
-		});
 		yield put(signUpFailure(error.message));
+		dispatch(setSnackbar(true, 'error', error.message));
 	}
 }
 
