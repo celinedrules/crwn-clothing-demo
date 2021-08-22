@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { HashRouter } from 'react-router-dom';
+import { BrowserRouter, HashRouter } from 'react-router-dom';
 import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './redux/store';
 import reportWebVitals from './reportWebVitals';
@@ -12,11 +12,11 @@ import CustomizedSnackbars from './components/snackbar/snackbar.component';
 ReactDOM.render(
 	<Provider store={store}>
 		<CustomizedSnackbars />
-		<HashRouter>
+		<BrowserRouter>
 			<PersistGate persistor={persistor}>
 				<App />
 			</PersistGate>
-		</HashRouter>
+		</BrowserRouter>
 	</Provider>,
 	document.getElementById('root'),
 );
