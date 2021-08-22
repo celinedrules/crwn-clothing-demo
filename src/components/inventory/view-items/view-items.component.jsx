@@ -1,5 +1,5 @@
 ﻿import React from 'react';
-import { useTable } from 'react-table';
+import { useTable, useSortBy } from 'react-table';
 import { Cells, ColumnHeader, DeleteButton, EditButton, TableContainer } from './view-items.styles';
 
 const ViewItems = () =>
@@ -86,7 +86,7 @@ const ViewItems = () =>
 		headerGroups,
 		rows,
 		prepareRow,
-	} = useTable({ columns, data });
+	} = useTable({ columns, data }, useSortBy);
 
 	return (
 		<TableContainer>
@@ -95,7 +95,14 @@ const ViewItems = () =>
 				{headerGroups.map(headerGroup => (
 					<tr {...headerGroup.getHeaderGroupProps()}>
 						{headerGroup.headers.map(column => (
-							<ColumnHeader {...column.getHeaderProps()}>{column.render('Header')}</ColumnHeader>
+							<ColumnHeader {...column.getHeaderProps(column.getSortByToggleProps())}>
+								{column.render('Header')}
+								{/*{*/}
+								{/*	<span>*/}
+								{/*		{column.isSorted ? column.isSortedDesc ? ' 🔽' : ' 🔼' : ''}*/}
+								{/*	</span>*/}
+								{/*}*/}
+							</ColumnHeader>
 						))}
 					</tr>
 				))}
