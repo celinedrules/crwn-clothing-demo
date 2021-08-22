@@ -5,8 +5,10 @@ import { ButtonContainer, InventoryButton } from './inventory.styles';
 import AddItems from '../../components/inventory/add-items/add-items.component';
 import ViewItems from '../../components/inventory/view-items/view-items.component';
 import CreateItems from '../../components/inventory/create-items/create-items.component';
+import { createStructuredSelector } from 'reselect';
+import { selectCollectionsForPreview } from '../../redux/shop/shop.selectors';
 
-const InventoryPage = ({ fetchCollectionsStart, match }) =>
+const InventoryPage = ({ fetchCollectionsStart, match, collections }) =>
 {
 	const [active, setActive] = useState('Add');
 	useEffect(() =>
@@ -24,6 +26,7 @@ const InventoryPage = ({ fetchCollectionsStart, match }) =>
 				break;
 			case 'View':
 				setActive('View');
+				//console.log(collections)
 				break;
 			case 'Create':
 				setActive('Create');
@@ -47,15 +50,19 @@ const InventoryPage = ({ fetchCollectionsStart, match }) =>
 			</div>
 			<div>
 				{active === 'Add' && (<AddItems />)}
-				{active === 'View' && (<ViewItems />)}
+				{active === 'View' && (<ViewItems collections={collections} />)}
 				{active === 'Create' && (<CreateItems />)}
 			</div>
 		</>
 	);
 };
 
+const mapStateToProps = createStructuredSelector({
+	collections: selectCollectionsForPreview,
+})
+
 const mapDispatchToProps = dispatch => ({
 	fetchCollectionsStart: () => dispatch(fetchCollectionsStart()),
 });
 
-export default connect(null, mapDispatchToProps)(InventoryPage);
+export default connect(mapStateToProps, mapDispatchToProps)(InventoryPage);

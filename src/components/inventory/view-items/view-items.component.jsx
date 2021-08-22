@@ -1,61 +1,61 @@
-﻿import React from 'react';
-import { useTable, useSortBy } from 'react-table';
+﻿import React, { useState } from 'react';
+import { useSortBy, useTable } from 'react-table';
 import { Cells, ColumnHeader, DeleteButton, EditButton, TableContainer } from './view-items.styles';
 
-const ViewItems = () =>
-{
-	const editProduct = (value) =>{
-		alert(value.productName)
-	}
-	
-	const data = React.useMemo(
-		() => [
-			{
-				itemNum: '1',
-				productName: 'Men\'s Blue Shirt',
-				productDesc: 'Nice Blue T-Shirt',
-				price: '$24.99',
-				onHand: '9',
-				category: 'Men\'s',
-				edit: <EditButton onClick={() => editProduct(data[0])}>Edit</EditButton>,
-				delete: <DeleteButton>Delete</DeleteButton>,
-			},
-			{
-				itemNum: '2',
-				productName: 'Girl\'s Green Hoodie',
-				productDesc: 'Lightweight Sweatshirt',
-				price: '$39.99',
-				onHand: '16',
-				category: 'Girl\'s',
-				edit: <EditButton onClick={() => editProduct(data[1])}>Edit</EditButton>,
-				delete: <DeleteButton>Delete</DeleteButton>,
-			},
-			{
-				itemNum: '3',
-				productName: 'Boy\'s Nike Jordan\'s',
-				productDesc: 'Expensive Shoes',
-				price: '$239.99',
-				onHand: '1',
-				category: 'Boy\'s Shoes',
-				edit: <EditButton onClick={() => editProduct(data[2])}>Edit</EditButton>,
-				delete: <DeleteButton>Delete</DeleteButton>,
-			},
-		], [],
+const EditData = ({ values }) => {
+	return (
+		<>
+			{values.map((item, index) => {
+				return (
+					<button>Edit</button>
+				);
+			})}
+		</>
 	);
+};
+
+const ViewItems = ({ collections }) => {
+	const [data] = useState(React.useMemo(() => {
+		let init = new Array(0);
+
+		for (let i = 0; i < collections.length; i++) {
+			Object.entries(collections[i]).map(([key, value]) => {
+				if (Array.isArray(value)) {
+					for (let j = 0; j < value.length; j++) {
+						value[j].description = collections[i].title + ' ' + value[j].name;
+						value[j].category = collections[i].title;
+						value[j].price = `$${value[j].price}`;
+						value[j].onHand = Math.floor((Math.random() * 99) + 1);
+						init.push(value[j]);
+					}
+				}
+			});
+		}
+
+		return init;
+	}, []));
+
+	const handleEdit = (value) => {
+		console.log(value);
+	};
+
+	const handleDelete = (value) => {
+		console.log(value);
+	};
 
 	const columns = React.useMemo(
 		() => [
 			{
-				Header: '#',
-				accessor: 'itemNum', // accessor is the "key" in the data
+				Header: 'ID',
+				accessor: 'id',
 			},
 			{
-				Header: 'Product Name',
-				accessor: 'productName',
+				Header: 'Name',
+				accessor: 'name',
 			},
 			{
 				Header: 'Description',
-				accessor: 'productDesc',
+				accessor: 'description',
 			},
 			{
 				Header: 'Price',
@@ -71,11 +71,13 @@ const ViewItems = () =>
 			},
 			{
 				Header: 'Edit',
-				accessor: 'edit',
+				accessor: '',
+				Cell: ({ cell }) => <EditButton onClick={() => handleEdit(cell.row.values)}>Edit</EditButton>,
 			},
 			{
 				Header: 'Delete',
-				accessor: 'delete',
+				accessor: '',
+				Cell: ({ cell }) => <DeleteButton onClick={() => handleDelete(cell.row.values)}>Delete</DeleteButton>,
 			},
 		], [],
 	);
@@ -108,13 +110,11 @@ const ViewItems = () =>
 				))}
 				</thead>
 				<tbody {...getTableBodyProps()}>
-				{rows.map(row =>
-				{
+				{rows.map(row => {
 					prepareRow(row);
 					return (
 						<tr {...row.getRowProps()}>
-							{row.cells.map(cell =>
-							{
+							{row.cells.map(cell => {
 								return (
 									<Cells{...cell.getCellProps()}>{cell.render('Cell')}</Cells>
 								);
